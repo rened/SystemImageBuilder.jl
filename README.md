@@ -31,8 +31,16 @@ resetimage()
 
 #### Excluded packages
 
-`SystemImageBuilder` per default excludes a set of packages from the image which are known not to be pre-compilable. Additional packages can be skipped by specifying the `exclude` parameter:
+`SystemImageBuilder.defaultexclude` contains a set of packages which are known not to be pre-compilable. Additional packages can be skipped by specifying the `exclude` parameter.
 
 ```jl
-buildimage(exclude = [SystemImageBuilder.defaultexclude; "SomePackage"]
+buildimage(exclude = [SystemImageBuilder.defaultexclude; "SomePackage"])
 ```
+
+You can force the inclusion of a package of specifying the `include` parameter:
+
+```jl
+buildimage(include = "SomePackage")
+```
+
+
