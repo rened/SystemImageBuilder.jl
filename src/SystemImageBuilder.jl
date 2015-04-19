@@ -21,12 +21,13 @@ end
 script = @p joinpath Pkg.dir("SystemImageBuilder") "contrib" "build_sysimg_0.$(VERSION.minor).jl"
 include(script)
 
-defaultexclude = ["Tk","PyPlot","IJulia","SystemImageBuilder"]
+defaultexclude = ["Tk","PyPlot","IJulia"]
 
 
 resetimage() = buildimage(reset = true)
 function buildimage(;exclude = defaultexclude, include = [], targetpath = default_sysimg_path, reset = false)
-    userimg = @p joinpath normpath(Base.JULIA_HOME, "../../base")"userimg.jl"
+    base_dir = dirname(Base.find_source_file("sysimg.jl"))
+    userimg = @p joinpath base_dir "userimg.jl"
 
     if reset
         try rm(userimg) end
