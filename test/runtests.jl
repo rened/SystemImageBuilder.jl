@@ -1,0 +1,4 @@
+using SystemImageBuilder
+
+buildimage()
+resetimage()
