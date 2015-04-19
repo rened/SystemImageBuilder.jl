@@ -5,10 +5,9 @@ notifications:
   email: 
       - code@donner.at
 before_install:
-  - sudo add-apt-repository ppa:staticfloat/julia-deps -y
-  - sudo add-apt-repository ppa:staticfloat/juliareleases -y
-  - sudo apt-get update -qq -y
-  - sudo apt-get install libpcre3-dev julia -y
+  - mkdir -p ~/julia
+  - curl -s -L https://status.julialang.org/stable/linux-x86_64 | tar -C ~/julia -x -z --strip-components=1 -f -
+  - export PATH="$PATH:$HOME/julia/bin" 
 script:
   - julia -e 'Pkg.init(); Pkg.add("FactCheck")'
   - julia -e 'run(`ln -s $(pwd()) $(Pkg.dir("SystemImageBuilder"))`); Pkg.pin("SystemImageBuilder")'
