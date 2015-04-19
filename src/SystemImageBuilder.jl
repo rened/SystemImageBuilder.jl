@@ -32,7 +32,7 @@ function buildimage(;exclude = defaultexclude, include = [], targetpath = defaul
     if reset
         try rm(userimg) end
         println("##  SystemImageBuilder: building clean sys.ji ...\n")
-        build_sysimg(default_sysimg_path, "native")
+        build_sysimg(default_sysimg_path, "native", force = true)
     else
         installed = sort([k for (k,v) in Pkg.installed()])
         req = recursiverequirements(installed)
@@ -54,7 +54,7 @@ function buildimage(;exclude = defaultexclude, include = [], targetpath = defaul
         
         println("##  SystemImageBuilder: invoking build_sysimg ...\n")
         mkpath(targetpath)
-        build_sysimg(targetpath, "native")
+        build_sysimg(targetpath, "native", force = true)
     end
 end
 
