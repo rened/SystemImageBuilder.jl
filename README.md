@@ -40,7 +40,7 @@ buildimage(exclude = [SystemImageBuilder.defaultexclude; "SomePackage"])
 You can force the inclusion of a package by specifying the `include` parameter:
 
 ```jl
-buildimage(include = "SomePackage")
+buildimage(include = ["SomePackage"])
 ```
 
 #### Updating
