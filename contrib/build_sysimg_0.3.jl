@@ -126,8 +126,7 @@ function link_sysimg(sysimg_path=default_sysimg_path, ld=find_system_linker())
         push!(FLAGS, "-shared")
         # on windows we link using gcc for now
         wl = @windows? "-Wl," : ""
-        push!(FLAGS, wl * "--unresolved-symbols")
-        push!(FLAGS, wl * "ignore-all")
+        push!(FLAGS, wl * "--unresolved-symbols=ignore-all")
     end
     @windows_only append!(FLAGS, ["-ljulia", "-lssp-0"])
 
