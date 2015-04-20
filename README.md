@@ -29,7 +29,7 @@ In case you did not specify a custom `targetpath`, thus overwriting the default,
 resetimage()
 ```
 
-#### Excluded packages
+#### Include / Exclude packages
 
 `SystemImageBuilder.defaultexclude` contains a set of packages which are known not to be pre-compilable. Additional packages can be skipped by specifying the `exclude` parameter:
 
@@ -42,5 +42,9 @@ You can force the inclusion of a package by specifying the `include` parameter:
 ```jl
 buildimage(include = "SomePackage")
 ```
+
+#### Updating
+
+When you change the set of installed packages, like with `Pkg.add()` or `Pkg.update()`, you will need to run `buildimage()` again.
 
 
