@@ -4,8 +4,9 @@
 # next to libjulia (except on Windows, where it goes in $JULIA_HOME\..\lib\julia)
 # Allow insertion of a userimg via userimg_path.  If sysimg_path.dlext is currently loaded into memory,
 # don't continue unless force is set to true.  Allow targeting of a CPU architecture via cpu_target
-@unix_only const default_sysimg_path = joinpath(dirname(Sys.dlpath("libjulia")),"sys")
-@windows_only const default_sysimg_path = joinpath(JULIA_HOME,"..","lib","julia","sys")
+
+const default_sysimg_path = joinpath(JULIA_HOME,"..","lib","julia","sys")
+
 function build_sysimg(sysimg_path=default_sysimg_path, cpu_target="native", userimg_path=nothing; force=false)
     # Quit out if a sysimg is already loaded and is in the same spot as sysimg_path, unless forcing
     sysimg = dlopen_e("sys")
