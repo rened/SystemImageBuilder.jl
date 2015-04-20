@@ -21,7 +21,7 @@ end
 script = @p joinpath Pkg.dir("SystemImageBuilder") "contrib" "build_sysimg_0.$(VERSION.minor).jl"
 include(script)
 
-defaultexclude = ["Tk","PyPlot","IJulia","SystemImageBuilder"]
+defaultexclude = ["Tk","PyPlot","IJulia","SystemImageBuilder","WinRPM"]
 
 
 resetimage() = buildimage(reset = true)
