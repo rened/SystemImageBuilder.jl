@@ -18,21 +18,32 @@ function recursiverequirements(installed)
     map(req, (k,v)->(k,makerec(req,k)))
 end
 
-script = @p joinpath Pkg.dir("SystemImageBuilder") "contrib" "build_sysimg_0.$(VERSION.minor).jl"
-include(script)
+try
+    include(joinpath(JULIA_HOME, Base.DATAROOTDIR, "julia", "build_sysimg.jl"))
+catch
+    script = @p normpath JULIA_HOME ".." ".." "contrib" "build_sysimg.jl"
+    include(script)
+end
 
 defaultexclude = ["Tk","PyPlot","IJulia","SystemImageBuilder","WinRPM"]
 
+sysimg = default_sysimg_path
+if !isfile(sysimg*".ji")
+    sysimg = joinpath(dirname(sysimg), "julia", "sys")
+end
+if !isfile(sysimg*".ji")
+    error("$(syimg).ji does not seem to be the correct path of sys.ji")
+end
 
 resetimage() = buildimage(reset = true)
-function buildimage(;exclude = defaultexclude, include = [], targetpath = default_sysimg_path, reset = false)
+function buildimage(;exclude = defaultexclude, include = [], targetpath = sysimg, reset = false)
     base_dir = dirname(Base.find_source_file("sysimg.jl"))
     userimg = @p joinpath base_dir "userimg.jl"
 
     if reset
         try rm(userimg) end
         println("##  SystemImageBuilder: building clean sys.ji ...\n")
-        build_sysimg(default_sysimg_path, "native", force = true)
+        build_sysimg(sysimg, "native", force = true)
     else
         installed = sort([k for (k,v) in Pkg.installed()])
         req = recursiverequirements(installed)
