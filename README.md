@@ -4,6 +4,18 @@
 
 `SystemImageBuilder` is a wrapper around the `build_sysimg` utility function. It allows to build a `sys.ji` image of all installed packages, skipping the packages which are on a curated `exclude` list themselves or depend on such an excluded package.
 
+#### Setup
+
+On OSX and Linux you should be all set, on Windows you might need to install `gcc`:
+
+```jl
+Pkg.add("WinRPM")
+using WinRPM
+WinRPM.install("gcc")
+```
+
+#### Using
+
 Usage is simple:
 
 ```jl
@@ -36,6 +48,8 @@ resetimage()
 ```jl
 buildimage(exclude = [SystemImageBuilder.defaultexclude; "SomePackage"])
 ```
+
+If you thing a certain package should be part of the default exlusion list, please file an issue!
 
 You can force the inclusion of a package by specifying the `include` parameter:
 
