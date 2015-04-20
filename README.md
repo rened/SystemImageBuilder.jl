@@ -49,7 +49,7 @@ resetimage()
 buildimage(exclude = [SystemImageBuilder.defaultexclude; "SomePackage"])
 ```
 
-If you thing a certain package should be part of the default exlusion list, please file an issue!
+If you think a certain package should be part of the default exclusion list, please file an issue!
 
 You can force the inclusion of a package by specifying the `include` parameter:
 
