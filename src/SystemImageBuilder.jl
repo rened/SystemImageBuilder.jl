@@ -12,9 +12,14 @@ function requires(pkg)
     pkg, reqs
 end
 
-function recursiverequirements(installed)
+function recursiverequirements(installed, included)
     req = @p map installed requires | Dict
-    makerec(a,k) = @p map a[k] (x->makerec(a,x)) | flatten | vcat a[k] | filter not*isempty | unique | sort
+    @p work included (x->req[x] = [])
+    makerec(a,k) = try
+        @p map a[k] (x->makerec(a,x)) | flatten | vcat a[k] | filter not*isempty | unique | sort 
+    catch e 
+        @show k; rethrow(e) 
+    end
     map(req, (k,v)->(k,makerec(req,k)))
 end
 
@@ -25,7 +30,7 @@ catch
     include(script)
 end
 
-defaultexclude = ["Tk","PyPlot","IJulia","SystemImageBuilder","WinRPM"]
+defaultexclude = ["Tk","PyPlot","PyCall","IJulia","SystemImageBuilder","WinRPM","RCall","LMDB","BinDeps"]
 
 sysimg = default_sysimg_path
 if !isfile(sysimg*".ji")
@@ -46,7 +51,7 @@ function buildimage(;exclude = defaultexclude, include = [], targetpath = sysimg
         build_sysimg(sysimg, "native", force = true)
     else
         installed = sort([k for (k,v) in Pkg.installed()])
-        req = recursiverequirements(installed)
+        req = recursiverequirements(installed, include)
         packages = filter(x->!in(x,exclude), installed)
         packages = filter(x->isempty(intersect(req[x],exclude)), packages)
         packages = [include; packages]
