@@ -30,7 +30,9 @@ catch
     include(script)
 end
 
-defaultexclude = ["Tk","PyPlot","PyCall","IJulia","SystemImageBuilder","WinRPM","RCall","LMDB","BinDeps"]
+defaultexclude = ["Tk","PyPlot","PyCall","IJulia","SystemImageBuilder","WinRPM","RCall","LMDB","BinDeps",
+    "Lint" # makes julia startup really slow
+    ]
 
 sysimg = default_sysimg_path
 if !isfile(sysimg*".ji")
