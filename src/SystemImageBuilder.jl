@@ -31,6 +31,7 @@ catch
 end
 
 defaultexclude = ["Tk","PyPlot","PyCall","IJulia","SystemImageBuilder","WinRPM","RCall","LMDB","BinDeps",
+    "MATLAB",
     "Lint" # makes julia startup really slow
     ]
 
