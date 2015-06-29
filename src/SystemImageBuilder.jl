@@ -47,6 +47,16 @@ resetimage() = buildimage(reset = true)
 function buildimage(;exclude = defaultexclude, include = [], targetpath = sysimg, reset = false)
     base_dir = dirname(Base.find_source_file("sysimg.jl"))
     userimg = @p joinpath base_dir "userimg.jl"
+    try
+        touch(userimg)
+    catch
+        println()
+        println("Path $userimg is not writable. Did you install Julia using a package manager?")
+        println("Can't proceed. Please either build Julia from source or download a binary from")
+        println("  http://julialang.org/downloads/")
+        println()
+        return
+    end
 
     if reset
         try rm(userimg) end
