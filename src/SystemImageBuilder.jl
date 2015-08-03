@@ -40,7 +40,7 @@ if !isfile(sysimg*".ji")
     sysimg = joinpath(dirname(sysimg), "julia", "sys")
 end
 if !isfile(sysimg*".ji")
-    error("$(syimg).ji does not seem to be the correct path of sys.ji")
+    error("$(sysimg).ji does not seem to be the correct path of sys.ji")
 end
 
 resetimage() = buildimage(reset = true)
