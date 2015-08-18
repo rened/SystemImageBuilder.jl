@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/rened/SystemImageBuilder.jl.png)](https://travis-ci.org/rened/SystemImageBuilder.jl)
 
+*Julia 0.4 adds the feature of precompiled, cached packages. SystemImageBuilder is thus no longer needed, and therefore deprecated.*
+
 `SystemImageBuilder` is a wrapper around the `build_sysimg` utility function. It allows to build a `sys.ji` image of all installed packages, skipping the packages which are on a curated `exclude` list themselves or depend on such an excluded package.
 
 #### Installing
